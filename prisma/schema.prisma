@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model FlightInquiry {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  departure     String
+  destination   String
+  departureDate DateTime
+  returnDate    DateTime?
+  fullName      String
+  email         String
+  phone         String
+  createdAt     DateTime  @default(now())
+}
