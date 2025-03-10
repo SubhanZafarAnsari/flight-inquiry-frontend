@@ -39,9 +39,9 @@ export default function InquiryForm() {
     setReturnDate(date);
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-  
+
     const inquiryData = {
       departure,
       destination,
@@ -51,22 +51,21 @@ export default function InquiryForm() {
       email,
       phone,
     };
-  
+
     const response = await fetch("/api/SendInquiries", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(inquiryData),
     });
-  
+
     const data = await response.json();
-  
+
     if (response.ok) {
       alert("Inquiry submitted successfully!");
     } else {
       alert("Error submitting inquiry.");
     }
   };
-  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -113,7 +112,7 @@ export default function InquiryForm() {
                       placeholder="Select departure date"
                     />
                   </PopoverTrigger>
-                  <PopoverContent>
+                  <PopoverContent className="w-auto p-0">
                     <Calendar
                       mode="single"
                       selected={departureDate}
@@ -135,7 +134,7 @@ export default function InquiryForm() {
                       placeholder="Select return date"
                     />
                   </PopoverTrigger>
-                  <PopoverContent>
+                  <PopoverContent className="w-auto p-0">
                     <Calendar
                       mode="single"
                       selected={returnDate}
@@ -150,7 +149,13 @@ export default function InquiryForm() {
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <Label htmlFor="name">Full Name</Label>
-                <Input id="name" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Enter your name" required />
+                <Input
+                  id="name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="Enter your name"
+                  required
+                />
               </div>
               <div>
                 <Label htmlFor="email">Email</Label>
